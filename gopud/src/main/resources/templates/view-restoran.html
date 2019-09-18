@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View Restoran</title>
 </head>
 <body>
-
+    <h2>Informasi Restoran</h2>
+    <h3>th:text="'ID Restoran: ' + ${resto.idRestoran}"</h3>
+    <h3>th:text="'Nama Restoran: ' + ${resto.nama}"</h3>
+    <h3>th:text="'Alamat Restoran: ' + ${resto.alamat}"</h3>
+    <h3>th:text="'Nomor Telp. Restoran: ' + ${resto.nomorTelepon}"</h3>
 </body>
 </html>

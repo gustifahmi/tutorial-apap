@@ -1,39 +1,39 @@
 package apap.tutorial.gopud.model;
 
 public class RestoranModel {
-    private string idRestoran;
-    private string nama;
-    private string alamat;
-    private Integer nomorTelepon
+    private String idRestoran;
+    private String nama;
+    private String alamat;
+    private Integer nomorTelepon;
 
-    public RestoranModel(string idRestoran, string nama, string alamat, Integer nomorTelepon) {
+    public RestoranModel(String idRestoran, String nama, String alamat, Integer nomorTelepon) {
         this.idRestoran = idRestoran;
         this.nama = nama;
         this.alamat = alamat;
         this.nomorTelepon = nomorTelepon;
     }
 
-    public string getIdRestoran() {
+    public String getIdRestoran() {
         return idRestoran;
     }
 
-    public void setIdRestoran(string idRestoran) {
+    public void setIdRestoran(String idRestoran) {
         this.idRestoran = idRestoran;
     }
 
-    public string getNama() {
+    public String getNama() {
         return nama;
     }
 
-    public void setNama(string nama) {
+    public void setNama(String nama) {
         this.nama = nama;
     }
 
-    public string getAlamat() {
+    public String getAlamat() {
         return alamat;
     }
 
-    public void setAlamat(string alamat) {
+    public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
 

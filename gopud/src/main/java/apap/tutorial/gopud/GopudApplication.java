@@ -1,4 +1,4 @@
-package apap.tutorial.gopud.model;
+package apap.tutorial.gopud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
