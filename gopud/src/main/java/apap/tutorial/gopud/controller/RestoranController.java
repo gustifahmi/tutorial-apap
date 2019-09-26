@@ -67,6 +67,18 @@ public class RestoranController {
     //API yang digunakan untuk menuju halaman form change restoran
     @RequestMapping(value = "restoran/change/{idRestoran}", method = RequestMethod.GET)
     public String changeRestoranFormPage(@PathVariable Long idRestoran, Model model) {
-        
+        //Mengambil existing data restoran
+        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        model.addAttribute("restoran", existingRestoran);
+        return "form-change-restoran";
+    }
+
+    //API yang digunakan untuk submit form change restoran
+    @RequestMapping(value = "restoran/change/{idRestoran}", method = RequestMethod.POST)
+    public String changeRestoranFormSubmit(@PathVariable Long idRestoran, @ModelAttribute RestoranModel restoran,
+                                           Model model) {
+        RestoranModel newRestoranData = restoranService.changeRestoran(restoran);
+        model.addAttribute("restoran", newRestoranData);
+        return "change-restoran";
     }
 }
