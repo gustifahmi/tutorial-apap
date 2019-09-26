@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import apap.tutorial.gopud.model.RestoranModel;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class RestoranInMemoryService implements RestoranService {
@@ -24,18 +25,22 @@ public class RestoranInMemoryService implements RestoranService {
     }
 
     @Override
-    public RestoranModel getRestoranByIdRestoran(String idRestoran) {
+    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
         boolean adaRestoran = false;
         int index = 0;
-        while (!adaRestoran && index < listRestoran.size()){
-            if(listRestoran.get(index).getIdRestoran().equalsIgnoreCase(idRestoran))
+        RestoranModel restoran = null;
+        while (!adaRestoran && index < listRestoran.size()) {
+            if (listRestoran.get(index).getIdRestoran().equals(idRestoran)) {
                 adaRestoran = true;
+                restoran = listRestoran.get(index);
+            }
             else
                 index += 1;
         }
-        if (adaRestoran)
-            return listRestoran.get(index);
-        else
-            return null;
+        return Optional.of(restoran);
+    }
+
+    public RestoranModel changeRestoran(RestoranModel restoranModel){
+        return null;
     }
 }

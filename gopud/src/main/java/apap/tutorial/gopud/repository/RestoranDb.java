@@ -1,4 +1,12 @@
 package apap.tutorial.gopud.repository;
 
-public interface RestoranDB {
+import apap.tutorial.gopud.model.RestoranModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface RestoranDb extends JpaRepository<RestoranModel, Long> {
+    Optional<RestoranModel> findByIdRestoran(Long idRestoran);
 }

@@ -1,4 +1,12 @@
 package apap.tutorial.gopud.repository;
 
-public interface MenuDB {
+import apap.tutorial.gopud.model.MenuModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface MenuDb extends JpaRepository<MenuModel, Long> {
+    List<MenuModel> findByIdRestoran(Long restoranId);
 }
