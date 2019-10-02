@@ -64,8 +64,20 @@ public class RestoranController {
         return "view-restoran";
     }
 
+    @RequestMapping(path = "/restoran/view-all")
+    public String viewAll(Model model){
+        //Mengambil restoran yang tersimpan di List
+        List<RestoranModel> listRestoran = restoranService.getRestoranList();
+
+        //Add list restoran ke "listRestoran" untuk dirender
+        model.addAttribute("listRestoran", listRestoran);
+
+        //Return view template
+        return "viewall-restoran";
+    }
+
     //API yang digunakan untuk menuju halaman form change restoran
-    @RequestMapping(value = "restoran/change/{idRestoran}", method = RequestMethod.GET)
+    @RequestMapping(value = "/restoran/change/{idRestoran}", method = RequestMethod.GET)
     public String changeRestoranFormPage(@PathVariable Long idRestoran, Model model) {
         //Mengambil existing data restoran
         RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
@@ -74,7 +86,7 @@ public class RestoranController {
     }
 
     //API yang digunakan untuk submit form change restoran
-    @RequestMapping(value = "restoran/change/{idRestoran}", method = RequestMethod.POST)
+    @RequestMapping(value = "/restoran/change/{idRestoran}", method = RequestMethod.POST)
     public String changeRestoranFormSubmit(@PathVariable Long idRestoran, @ModelAttribute RestoranModel restoran,
                                            Model model) {
         RestoranModel newRestoranData = restoranService.changeRestoran(restoran);

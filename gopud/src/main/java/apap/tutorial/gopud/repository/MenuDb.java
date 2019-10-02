@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MenuDb extends JpaRepository<MenuModel, Long> {
-    List<MenuModel> findByIdRestoran(Long restoranId);
+    List<MenuModel> findByRestoranIdRestoran(Long restoranId);
 }

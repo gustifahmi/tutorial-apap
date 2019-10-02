@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>View Restoran</title>
@@ -10,5 +10,19 @@
     <h3 th:text="'Nama Restoran: ' + ${resto.nama}"></h3>
     <h3 th:text="'Alamat Restoran: ' + ${resto.alamat}"></h3>
     <h3 th:text="'Nomor Telp. Restoran: ' + ${resto.nomorTelepon}"></h3>
+
+    <td><a th:href="@{/restoran/change/} + ${resto.idRestoran}">Ubah Data Restoran</a></td>
+
+    <h2>Daftar Menu:</h2>
+
+    <div th:each="menu : ${menuList}">
+        <h3 th:text="'Nama: ' + ${menu.nama}"></h3>
+        <h3 th:text="'Harga: ' + ${menu.harga}"></h3>
+        <h3 th:text="'Deskripsi: ' + ${menu.deskripsi}"></h3>
+        <h3 th:text="'Durasi Penyajian: ' + ${menu.durasiMasak}"></h3>
+        <br>
+    </div>
+
+    <td><a th:href="@{/menu/add/} + ${resto.idRestoran}">Add Menu</a></td>
 </body>
 </html>

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="restoran")
+@Table(name = "restoran")
 public class RestoranModel implements Serializable {
 
     @Id
@@ -32,7 +32,7 @@ public class RestoranModel implements Serializable {
     @Column(name="rating", nullable = false)
     private Integer rating = 0;
 
-    @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MenuModel> listMenu;
 
     public Long getIdRestoran() {
