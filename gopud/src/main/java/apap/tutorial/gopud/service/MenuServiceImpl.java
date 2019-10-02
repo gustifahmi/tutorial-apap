@@ -21,4 +21,9 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuModel> findAllMenuByIdRestoran(Long idRestoran) {
         return menuDb.findByRestoranIdRestoran(idRestoran);
     }
+
+    @Override
+    public MenuModel getMenuByNamaAndHarga(String nama, Integer harga) {
+        List<MenuModel> daftarMenu = menuDb.findByNamaAndHarga(String nama, Integer harga);
+    }
 }
