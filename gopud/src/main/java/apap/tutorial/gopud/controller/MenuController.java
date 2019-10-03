@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.awt.*;
+
 @Controller
 public class MenuController {
     @Autowired
@@ -38,5 +40,13 @@ public class MenuController {
 
         model.addAttribute("nama", menu.getNama());
         return "add-menu";
+    }
+
+    @RequestMapping(value = "/menu/delete", method = RequestMethod.POST)
+    private String delete(@ModelAttribute RestoranModel restoran, Model model) {
+        for(MenuModel menu : restoran.getListMenu()){
+            menuService.deleteMenu(menu);
+        }
+        return "delete";
     }
 }
