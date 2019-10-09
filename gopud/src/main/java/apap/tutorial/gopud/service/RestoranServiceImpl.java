@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class RestoranServiceImpl implements RestoranService {
+public class RestoranServiceImpl implements RestoranService{
     @Autowired
     private RestoranDb restoranDb;
 
@@ -32,18 +32,28 @@ public class RestoranServiceImpl implements RestoranService {
 
     @Override
     public RestoranModel changeRestoran(RestoranModel restoranModel) {
-        //Mengambil object restoran yang ingin diubah
+        // mengambil object restoran yang ingin diubah
         RestoranModel targetRestoran = restoranDb.findById(restoranModel.getIdRestoran()).get();
 
-        try {
+        try{
             targetRestoran.setNama(restoranModel.getNama());
             targetRestoran.setAlamat(restoranModel.getAlamat());
             targetRestoran.setNomorTelepon(restoranModel.getNomorTelepon());
             restoranDb.save(targetRestoran);
             return targetRestoran;
-        }
-        catch (NullPointerException nullException) {
+        } catch (NullPointerException nullException) {
             return null;
+        }
+    }
+
+    @Override
+    public void deleteRestoran(Long idRestoran) {
+        RestoranModel restoran = getRestoranByIdRestoran(idRestoran).get();
+        if(restoran.getListMenu().size()==0){
+            restoranDb.delete(restoran);
+        }else{
+            UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
+            throw unsupportedOperationException;
         }
     }
 }

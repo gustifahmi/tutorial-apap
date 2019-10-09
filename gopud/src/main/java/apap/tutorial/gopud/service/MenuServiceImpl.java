@@ -5,9 +5,7 @@ import apap.tutorial.gopud.repository.MenuDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.util.*;
-import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -23,20 +21,14 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuModel> findAllMenuByIdRestoran(Long idRestoran) {
         return menuDb.findByRestoranIdRestoran(idRestoran);
     }
-
+    
     @Override
     public List<MenuModel> getListMenuOrderByHargaAsc(Long idRestoran) {
-        List<MenuModel> menuList = findAllMenuByIdRestoran(idRestoran);
-        Collections.sort(menuList, new HargaComparator());
-        return menuList;
+    	return menuDb.findByRestoranIdRestoranOrderByHarga(idRestoran);
     }
-
+    
     @Override
-    public void deleteMenu(MenuModel menu) {menuDb.delete(menu);}
-}
-
-class HargaComparator implements Comparator<MenuModel> {
-    public int compare(MenuModel menu1, MenuModel menu2) {
-        return menu1.getHarga().compareTo(menu2.getHarga());
+    public void deleteMenu(MenuModel menu) {
+    	menuDb.delete(menu);
     }
 }

@@ -1,4 +1,4 @@
-package apap.tutorial.gopud.model;
+package apap.tutorial.gopud;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
