@@ -47,7 +47,7 @@ public class RestoranControllerTest {
         dummyRestoranModel.setNama("dummy " + count);
         dummyRestoranModel.setAlamat("alamat " + count);
         dummyRestoranModel.setIdRestoran((long)count);
-        dummyRestoranModel.setNomorTelepon(14000);
+        dummyRestoranModel.setNomorTelepon("14000");
         dummyRestoranModel.setListMenu(new ArrayList<>());
         return dummyRestoranModel;
     }

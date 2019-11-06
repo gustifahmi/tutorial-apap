@@ -7,15 +7,15 @@ import apap.tutorial.gopud.model.RestoranModel;
 
 public interface RestoranService {
     //Method untuk menambah restoran
-    void addRestoran(RestoranModel restoran);
+    RestoranModel addRestoran(RestoranModel restoran);
 
     //Method untuk mendapatkan semua data Restoran yang tersimpan
     List<RestoranModel> getRestoranList();
 
     //Method untuk mendapatkan data sebuah Restoran berdasarkan idRestoran
-    Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran);
+    RestoranModel getRestoranByIdRestoran(Long idRestoran);
 
-    RestoranModel changeRestoran(RestoranModel restoranModel);
+    RestoranModel changeRestoran(RestoranModel restoranUpdate);
 
     void deleteRestoran(Long idRestoran);
 }

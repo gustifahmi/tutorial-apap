@@ -30,7 +30,7 @@ public class RestoranModel implements Serializable {
 
     @NotNull
     @Column(name = "nomorTelepon", nullable = false)
-    private Integer nomorTelepon;
+    private String nomorTelepon;
 
     @NotNull
     @Column(name = "rating", nullable = false)
@@ -63,13 +63,22 @@ public class RestoranModel implements Serializable {
         this.alamat = alamat;
     }
 
-    public Integer getNomorTelepon() {
+    public String getNomorTelepon() {
         return nomorTelepon;
     }
 
-    public void setNomorTelepon(Integer nomorTelepon) {
+    public void setNomorTelepon(String nomorTelepon) {
         this.nomorTelepon = nomorTelepon;
     }
+    
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
 
     public List<MenuModel> getListMenu() {
         return listMenu;

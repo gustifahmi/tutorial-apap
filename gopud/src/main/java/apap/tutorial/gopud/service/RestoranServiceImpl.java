@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -16,44 +17,48 @@ public class RestoranServiceImpl implements RestoranService{
     private RestoranDb restoranDb;
 
     @Override
-    public void addRestoran(RestoranModel restoran) {
+    public RestoranModel addRestoran(RestoranModel restoran) {
         restoranDb.save(restoran);
+        return restoran;
     }
 
     @Override
     public List<RestoranModel> getRestoranList() {
-        return restoranDb.findAll();
+        return restoranDb.findAllByOrderByNamaAsc();
     }
 
     @Override
-    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
-        return restoranDb.findByIdRestoran(idRestoran);
+    public RestoranModel getRestoranByIdRestoran(Long idRestoran) {
+        Optional<RestoranModel> restoran = restoranDb.findByIdRestoran(idRestoran);
+
+        if (restoran.isPresent()){
+            return restoran.get();
+        }else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
-    public RestoranModel changeRestoran(RestoranModel restoranModel) {
-        // mengambil object restoran yang ingin diubah
-        RestoranModel targetRestoran = restoranDb.findById(restoranModel.getIdRestoran()).get();
-
+    public RestoranModel changeRestoran(RestoranModel restoranUpdate) {
         try{
-            targetRestoran.setNama(restoranModel.getNama());
-            targetRestoran.setAlamat(restoranModel.getAlamat());
-            targetRestoran.setNomorTelepon(restoranModel.getNomorTelepon());
-            restoranDb.save(targetRestoran);
-            return targetRestoran;
+            RestoranModel restoran = getRestoranByIdRestoran(restoranUpdate.getIdRestoran());
+            restoran.setAlamat(restoranUpdate.getAlamat());
+            restoran.setNomorTelepon(restoranUpdate.getNomorTelepon());
+            restoran.setRating(restoranUpdate.getRating());
+            return restoranDb.save(restoran);
         } catch (NullPointerException nullException) {
-            return null;
+            throw nullException;
         }
     }
 
     @Override
     public void deleteRestoran(Long idRestoran) {
-        RestoranModel restoran = getRestoranByIdRestoran(idRestoran).get();
+        RestoranModel restoran = getRestoranByIdRestoran(idRestoran);
         if(restoran.getListMenu().size()==0){
             restoranDb.delete(restoran);
         }else{
-            UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
-            throw unsupportedOperationException;
+            throw new UnsupportedOperationException();
         }
     }
+
 }

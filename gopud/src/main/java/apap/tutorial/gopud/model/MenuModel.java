@@ -38,7 +38,6 @@ public class MenuModel implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "restoranId", referencedColumnName = "idRestoran", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private RestoranModel restoran;
 
     public Long getId() {

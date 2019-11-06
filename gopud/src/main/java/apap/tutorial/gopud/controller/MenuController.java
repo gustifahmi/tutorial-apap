@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.NoSuchElementException;
+
 @Controller
 public class MenuController {
     @Autowired
@@ -30,21 +32,20 @@ public class MenuController {
 
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.GET)
     private String addMenuFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model){
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
-        
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+
         List<MenuModel> menuList = new ArrayList<>();
-        
+
         menuList.add(new MenuModel());
         restoran.setListMenu(menuList);
         model.addAttribute("resto", restoran);
-
         return "form-add-menu";
 
     }
 
     @RequestMapping(value = "/menu/add/{restoranId}", params={"save"}, method = RequestMethod.POST)
     private String addMenuSubmit(@ModelAttribute RestoranModel restoran, Model model){
-        RestoranModel curr = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran()).get();
+        RestoranModel curr = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran());
         List<MenuModel> menus = restoran.getListMenu();
         for(int i=0; i<menus.size(); i++) {
         	menus.get(i).setRestoran(curr);
@@ -53,7 +54,44 @@ public class MenuController {
 
         return "add-menu";
     }
-    
+    @RequestMapping(value="menu/change/{idMenu}", method = RequestMethod.GET)
+    public String changeMenuFormPage(@PathVariable Long idMenu, Model model) {
+        //Mengambil existing data restoran
+        try{
+            MenuModel existingMenu = menuService.findById(idMenu);
+            model.addAttribute("menu", existingMenu);
+            return "form-change-menu";
+        }catch (NoSuchElementException e){
+            model.addAttribute("idMenu", idMenu);
+            return "change-menu-error";
+        }
+    }
+
+    @RequestMapping(value="menu/change/{idMenu}", method = RequestMethod.POST)
+    public String changeMenuFormSubmit(@PathVariable Long idMenu, @ModelAttribute MenuModel menu, Model model) {
+        try{
+            MenuModel newMenuData = menuService.changeRestoran(menu);
+            model.addAttribute("menu", newMenuData);
+        }
+        catch (NoSuchElementException e){
+            model.addAttribute("idMenu", idMenu);
+            return "change-menu-error";
+        }
+
+        return "change-menu";
+    }
+
+    @RequestMapping(value="menu/delete/id/{idMenu}", method = RequestMethod.GET)
+    public String deleteMenuFormPage(@PathVariable Long idMenu, @ModelAttribute MenuModel menu, Model model){
+        try{
+            menuService.deleteMenu(idMenu);
+        }catch (NoSuchElementException e){
+            model.addAttribute("errorMessage", "Id tidak ditemukan");
+            return "delete-menu-error";
+        }
+        return "delete-menu";
+    }
+
     @RequestMapping(value = "/menu/add/{restoranId}", params= {"addRow"}, method=RequestMethod.POST)
     private String addRow(@ModelAttribute RestoranModel restoran, Model model) {
     	

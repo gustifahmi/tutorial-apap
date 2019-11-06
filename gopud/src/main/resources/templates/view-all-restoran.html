@@ -9,11 +9,29 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <h2>Daftar Seluruh Restoran</h2>
-    <div th:each="resto : ${restoranList}">
-        <h3 th:text="'ID Restoran: ' + ${resto.idRestoran}"></h3>
-        <h3 th:text="'Nama Restoran: ' + ${resto.nama}"></h3>
-        <h3 th:text="'Alamat Restoran: ' + ${resto.alamat}"></h3>
-        <h3 th:text="'Nomor Telp. Restoran: ' + ${resto.nomorTelepon}"></h3>
+    <table style="width:100%">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Nomor Telepon</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="resto : ${restoranList}">
+            <td th:text="${resto.idRestoran}"></td>
+            <td th:text="${resto.nama}"></td>
+            <td th:text="${resto.alamat}"></td>
+            <td th:text="${resto.nomorTelepon}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <div>
+        <button class="btn btn-primary" style="background-color: blue">
+            <a th:href="@{/}" style="color: white"> Kembali ke Beranda</a>
+        </button>
     </div>
 </body>
 </html>

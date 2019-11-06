@@ -29,7 +29,7 @@ public class RestoranServiceImplTest {
         RestoranModel newRestoran = new RestoranModel();
         newRestoran.setNama("mekdi");
         newRestoran.setAlamat("pacil");
-        newRestoran.setNomorTelepon(14045);
+        newRestoran.setNomorTelepon("14045");
         restoranService.addRestoran(newRestoran);
         verify(restoranDb, times(1)).save(newRestoran);
     }
@@ -52,18 +52,13 @@ public class RestoranServiceImplTest {
         returnedData.setNama("kaefci");
         returnedData.setAlamat("TB Simatupang");
         returnedData.setIdRestoran((long)1);
-        returnedData.setNomorTelepon(14022);
-        when(restoranService.getRestoranByIdRestoran(1L)).thenReturn(Optional.of(returnedData
-        ));
-        Optional<RestoranModel> dataFromServiceCall =
-                restoranService.getRestoranByIdRestoran(1L);
+        returnedData.setNomorTelepon("14022");
+        RestoranModel dataFromServiceCall = restoranService.getRestoranByIdRestoran(1L);
         verify(restoranDb, times(1)).findByIdRestoran(1L);
-        assertTrue(dataFromServiceCall.isPresent());
-        RestoranModel dataFromOptional = dataFromServiceCall.get();
-        assertEquals("kaefci", dataFromOptional.getNama());
-        assertEquals("TB Simatupang", dataFromOptional.getAlamat());
-        assertEquals(Long.valueOf(1), dataFromOptional.getIdRestoran());
-        assertEquals(Integer.valueOf(14022), dataFromOptional.getNomorTelepon());
+        assertEquals("kaefci", dataFromServiceCall.getNama());
+        assertEquals("TB Simatupang", dataFromServiceCall.getAlamat());
+        assertEquals(Long.valueOf(1), dataFromServiceCall.getIdRestoran());
+        assertEquals(Integer.valueOf(14022), dataFromServiceCall.getNomorTelepon());
     }
 
     @Test
@@ -72,7 +67,7 @@ public class RestoranServiceImplTest {
         updatedData.setNama("kaefci");
         updatedData.setAlamat("dummy");
         updatedData.setIdRestoran((long)1);
-        updatedData.setNomorTelepon(14022);
+        updatedData.setNomorTelepon("14022");
         when(restoranDb.findById(1L)).thenReturn(Optional.of(updatedData));
         when(restoranService.changeRestoran(updatedData)).thenReturn(updatedData);
         RestoranModel dataFromServiceCall = restoranService.changeRestoran(updatedData);
