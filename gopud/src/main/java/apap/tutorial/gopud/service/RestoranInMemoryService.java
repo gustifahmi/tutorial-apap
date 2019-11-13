@@ -1,22 +1,25 @@
 package apap.tutorial.gopud.service;
 
-import org.springframework.stereotype.Service;
 import apap.tutorial.gopud.model.RestoranModel;
-import java.util.List;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RestoranInMemoryService implements RestoranService {
     private List<RestoranModel> listRestoran;
 
+    //Constructor
     public RestoranInMemoryService() {
         listRestoran = new ArrayList<>();
     }
 
     @Override
-    public void addRestoran(RestoranModel restoran) {
+    public RestoranModel addRestoran(RestoranModel restoran) {
         listRestoran.add(restoran);
+        return restoran;
     }
 
     @Override
@@ -25,22 +28,22 @@ public class RestoranInMemoryService implements RestoranService {
     }
 
     @Override
-    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
-        boolean adaRestoran = false;
-        int index = 0;
-        RestoranModel restoran = null;
-        while (!adaRestoran && index < listRestoran.size()) {
-            if (listRestoran.get(index).getIdRestoran().equals(idRestoran)) {
-                adaRestoran = true;
-                restoran = listRestoran.get(index);
+    public RestoranModel getRestoranByIdRestoran(Long idRestoran) {
+        for(int i = 0; i < listRestoran.size(); i++) {
+            if (listRestoran.get(i).getIdRestoran().equals(idRestoran)) {
+                return listRestoran.get(i);
             }
-            else
-                index += 1;
         }
-        return Optional.of(restoran);
+        return null;
     }
 
-    public RestoranModel changeRestoran(RestoranModel restoranModel){
+    @Override
+    public RestoranModel changeRestoran(RestoranModel restoran) {
         return null;
+    }
+
+    @Override
+    public void deleteRestoran(Long idRestoran) {
+
     }
 }

@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
 
 @Entity
 @Table(name = "menu")
@@ -33,16 +32,13 @@ public class MenuModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
+    @Column(name = "deskripsi", nullable = false)
     private String deskripsi;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "restoranId", referencedColumnName = "idRestoran", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private RestoranModel restoran;
-
-    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
-    private List<ReviewModel> listReview;
 
     public Long getId() {
         return id;

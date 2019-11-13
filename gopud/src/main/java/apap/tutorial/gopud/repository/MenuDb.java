@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface MenuDb extends JpaRepository<MenuModel, Long> {
     List<MenuModel> findByRestoranIdRestoran(Long restoranId);
+    List<MenuModel> findByRestoranIdRestoranOrderByHarga(Long restoranId);
 }
