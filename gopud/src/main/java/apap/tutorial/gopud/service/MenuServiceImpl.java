@@ -1,7 +1,6 @@
 package apap.tutorial.gopud.service;
 
 import apap.tutorial.gopud.model.MenuModel;
-import apap.tutorial.gopud.model.RestoranModel;
 import apap.tutorial.gopud.repository.MenuDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
